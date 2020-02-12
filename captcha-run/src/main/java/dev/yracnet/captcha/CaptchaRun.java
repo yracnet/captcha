@@ -22,7 +22,7 @@ public class CaptchaRun extends JPanel {
     private final CaptchaBuild build;
 
     public CaptchaRun() {
-        build = new CaptchaBuild();
+        build = CaptchaBuild.createInstance();
         CaptchaConfig config = build.getConfig();
         config.addTextColor("#0093d6");
         config.addTextColor("#feda00");

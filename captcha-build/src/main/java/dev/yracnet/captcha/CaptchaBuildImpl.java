@@ -23,7 +23,7 @@ public class CaptchaBuildImpl implements CaptchaBuild {
 
     private static final Logger LOGGER = Logger.getLogger(CaptchaBuildImpl.class.getName());
 
-    private final CaptchaConfig config = new CaptchaConfig();
+    private final CaptchaConfig config = new CaptchaConfigImpl();
     
     protected CaptchaBuildImpl(){}
 
