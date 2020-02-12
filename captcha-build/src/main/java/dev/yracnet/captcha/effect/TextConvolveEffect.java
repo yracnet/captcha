@@ -13,7 +13,7 @@ import java.awt.image.Kernel;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class TextConvolveEffect implements CaptchaEffect {
 

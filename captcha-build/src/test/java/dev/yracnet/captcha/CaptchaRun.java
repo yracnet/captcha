@@ -5,8 +5,6 @@
  */
 package dev.yracnet.captcha;
 
-import dev.yracnet.captcha.CaptchaBuild;
-import static dev.yracnet.captcha.CaptchaHelp.*;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -15,14 +13,14 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class CaptchaRun extends JPanel {
 
     private final CaptchaBuild build;
 
     public CaptchaRun() {
-        build = createCaptchaDefault();
+        build = CaptchaHelp.createCaptchaDefault();
     }
 
     @Override

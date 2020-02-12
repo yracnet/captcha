@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public interface CaptchaEffect {
 

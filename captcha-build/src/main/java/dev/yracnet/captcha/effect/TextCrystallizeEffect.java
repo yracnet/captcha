@@ -12,7 +12,7 @@ import static dev.yracnet.captcha.CaptchaHelp.*;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class TextCrystallizeEffect implements CaptchaEffect {
 

@@ -18,7 +18,7 @@ import java.net.URL;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class CaptchaHelp {
 
@@ -52,7 +52,7 @@ public class CaptchaHelp {
     }
 
     public static CaptchaBuild createCaptchaDefault() {
-        CaptchaBuild build = new CaptchaBuild();
+        CaptchaBuild build = CaptchaBuild.createInstance();
         CaptchaConfig config = build.getConfig();
         config.addTextFont(urlFromName("/default/font1.ttf"));
         config.addTextFont(urlFromName("/default/font2.ttf"));

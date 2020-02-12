@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class CaptchaRun extends JPanel {
 

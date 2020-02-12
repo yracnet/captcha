@@ -6,15 +6,13 @@
 package dev.yracnet.captcha.effect;
 
 import com.jhlabs.image.BoxBlurFilter;
-import com.jhlabs.image.RippleFilter;
-import com.jhlabs.image.TwirlFilter;
 import dev.yracnet.captcha.CaptchaEffect;
 import java.awt.image.BufferedImage;
 import static dev.yracnet.captcha.CaptchaHelp.*;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class BackgroundBoxBlurEffect implements CaptchaEffect {
 

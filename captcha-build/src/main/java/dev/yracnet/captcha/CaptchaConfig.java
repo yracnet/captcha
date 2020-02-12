@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 @lombok.Getter
 @lombok.Setter

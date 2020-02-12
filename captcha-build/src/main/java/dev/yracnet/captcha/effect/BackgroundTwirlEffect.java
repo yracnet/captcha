@@ -12,7 +12,7 @@ import static dev.yracnet.captcha.CaptchaHelp.*;
 
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class BackgroundTwirlEffect implements CaptchaEffect {
 

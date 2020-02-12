@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import static dev.yracnet.captcha.CaptchaHelp.*;
 /**
  *
- * @author wyujra
+ * @author Willyams Yujra
  */
 public class TextBoxBlurEffect implements CaptchaEffect{
 
