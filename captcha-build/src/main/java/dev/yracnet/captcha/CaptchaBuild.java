@@ -52,4 +52,16 @@ public interface CaptchaBuild {
 
     public BufferedImage createCaptcha(BufferedImage text, BufferedImage back);
 
+    public byte[] createCaptchaAsByteArray(String code);
+
+    public byte[] createCaptchaAsByteArray(String code, int fontStyle, int fontSize);
+
+    public byte[] createCaptchaAsByteArrayResize(String code, int width, int height);
+
+    public byte[] createCaptchaAsByteArrayResize(String code, int fontStyle, int fontSize, int width, int height);
+
+    public byte[] asByteArray(BufferedImage src, String ext);
+    
+    public BufferedImage resize(BufferedImage img, int width, int height);
+
 }

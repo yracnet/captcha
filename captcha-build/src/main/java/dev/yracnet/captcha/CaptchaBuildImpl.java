@@ -10,10 +10,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -24,27 +29,33 @@ public class CaptchaBuildImpl implements CaptchaBuild {
     private static final Logger LOGGER = Logger.getLogger(CaptchaBuildImpl.class.getName());
 
     private final CaptchaConfig config = new CaptchaConfigImpl();
-    
-    protected CaptchaBuildImpl(){}
 
+    protected CaptchaBuildImpl() {
+    }
+
+    @Override
     public CaptchaConfig getConfig() {
         return config;
     }
 
+    @Override
     public String createCodeRandom(int size) {
         return createCodeRandom(size, true);
     }
 
+    @Override
     public String createCodeRandom(int size, boolean upper) {
         String text = Long.toHexString(new Random().nextLong());
         text = upper ? text.toUpperCase() : text;
         return (text.length() > size) ? text.substring(0, size) : text;
     }
 
+    @Override
     public BufferedImage createSimpleText(String text) {
         return createSimpleText(text, 1, 80);
     }
 
+    @Override
     public BufferedImage createSimpleText(String text, int fontStyle, int fontSize) {
         Font font = config.getTextFontRandom(fontStyle, fontSize);
         int width = 2000;
@@ -69,14 +80,17 @@ public class CaptchaBuildImpl implements CaptchaBuild {
         return src;
     }
 
+    @Override
     public BufferedImage createSimpleBackground(BufferedImage src) {
         return createSimpleBackground(src.getWidth(), src.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
     }
 
+    @Override
     public BufferedImage createSimpleBackground(int width, int height) {
         return createSimpleBackground(width, height, BufferedImage.TYPE_4BYTE_ABGR);
     }
 
+    @Override
     public BufferedImage createSimpleBackground(int width, int height, int type) {
         BufferedImage src = config.getBackgroundImageRandom();
         int x = getIntRango(0, src.getWidth() - width - 1);
@@ -95,16 +109,19 @@ public class CaptchaBuildImpl implements CaptchaBuild {
         return src;
     }
 
+    @Override
     public BufferedImage createEffectText(String text) {
         BufferedImage src = createSimpleText(text);
         return createEffectText(src);
     }
 
+    @Override
     public BufferedImage createEffectText(String text, int fontStyle, int fontSize) {
         BufferedImage src = createSimpleText(text, fontStyle, fontSize);
         return createEffectText(src);
     }
 
+    @Override
     public BufferedImage createEffectText(BufferedImage src) {
         BufferedImage dest = cloneImage(src);
         int max = config.getTextEffectIterations();
@@ -115,14 +132,17 @@ public class CaptchaBuildImpl implements CaptchaBuild {
         return dest;
     }
 
+    @Override
     public BufferedImage createEffectBackground(BufferedImage src) {
         return createEffectBackground(src.getWidth(), src.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
     }
 
+    @Override
     public BufferedImage createEffectBackground(int width, int height) {
         return createEffectBackground(width, height, BufferedImage.TYPE_4BYTE_ABGR);
     }
 
+    @Override
     public BufferedImage createEffectBackground(int width, int height, int type) {
         BufferedImage src = createSimpleBackground(width, height, type);
         int max = config.getBackgoundEffectIterations();
@@ -133,24 +153,79 @@ public class CaptchaBuildImpl implements CaptchaBuild {
         return src;
     }
 
+    @Override
     public BufferedImage createCaptcha(String code) {
         BufferedImage text = createEffectText(code);
         return createCaptcha(text);
     }
 
+    @Override
     public BufferedImage createCaptcha(String code, int fontStyle, int fontSize) {
         BufferedImage text = createEffectText(code, fontStyle, fontSize);
         return createCaptcha(text);
     }
 
+    @Override
     public BufferedImage createCaptcha(BufferedImage text) {
         BufferedImage back = createEffectBackground(text);
         return createCaptcha(text, back);
     }
 
+    @Override
     public BufferedImage createCaptcha(BufferedImage text, BufferedImage back) {
         back.getGraphics().drawImage(text, 0, 0, null);
         return back;
+    }
+
+    @Override
+    public byte[] createCaptchaAsByteArray(String code) {
+        BufferedImage src = createCaptcha(code);
+        return asByteArray(src, "png");
+    }
+
+    @Override
+    public byte[] createCaptchaAsByteArray(String code, int fontStyle, int fontSize) {
+        BufferedImage src = createCaptcha(code, fontStyle, fontSize);
+        return asByteArray(src, "png");
+    }
+
+    @Override
+    public byte[] createCaptchaAsByteArrayResize(String code, int width, int height) {
+        BufferedImage src = createCaptcha(code);
+        src = resize(src, width, height);
+        return asByteArray(src, "png");
+    }
+
+    @Override
+    public byte[] createCaptchaAsByteArrayResize(String code, int fontStyle, int fontSize, int width, int height) {
+        BufferedImage src = createCaptcha(code, fontStyle, fontSize);
+        src = resize(src, width, height);
+        return asByteArray(src, "png");
+    }
+
+    @Override
+    public byte[] asByteArray(BufferedImage src, String ext) {
+        byte[] result = null;
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(src, ext, baos);
+            baos.flush();
+            result = baos.toByteArray();
+            baos.close();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error write image as byte array", e);
+        }
+        return result;
+    }
+
+    @Override
+    public BufferedImage resize(BufferedImage src, int width, int height) {
+        Image tmp = src.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+        return dimg;
     }
 
 }
