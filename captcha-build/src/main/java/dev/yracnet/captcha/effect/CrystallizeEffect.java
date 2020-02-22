@@ -20,7 +20,7 @@ public class CrystallizeEffect extends NoneEffect implements CaptchaEffect {
     @Override
     public BufferedImage applyMask(BufferedImage src, CaptchaConfig config) {
         CrystallizeFilter filter = new CrystallizeFilter();
-        filter.setScale(getFloatRango(1f, 50f));
+        filter.setScale(getFloatRango(1f, 20f));
         filter.setGridType(getIntRango(0, 4));
         filter.setFadeEdges(true);
         BufferedImage clon = cloneImage(src);
@@ -31,8 +31,8 @@ public class CrystallizeEffect extends NoneEffect implements CaptchaEffect {
     @Override
     public BufferedImage applyText(BufferedImage src, CaptchaConfig config) {
         CrystallizeFilter filter = new CrystallizeFilter();
-        filter.setScale(getFloatRango(1f, 5f));
-        filter.setGridType(getIntRango(0, 4));
+        filter.setScale(getFloatRango(1f, 4f));
+        filter.setGridType(getIntRango(1, 3));
         filter.setFadeEdges(true);
         BufferedImage clon = cloneImage(src);
         filter.filter(clon, clon);

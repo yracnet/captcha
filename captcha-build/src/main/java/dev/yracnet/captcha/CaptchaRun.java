@@ -9,8 +9,10 @@ import dev.yracnet.captcha.CaptchaBuild;
 import dev.yracnet.captcha.effect.*;
 import static dev.yracnet.captcha.CaptchaHelp.*;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -38,23 +40,26 @@ public class CaptchaRun extends JPanel {
         config.addTextColor("#fffcf7");
         config.addTextColor("#11476d");
         config.addMaskImage(urlFromName("/default/back1.jpg"));
+        config.addMaskImage(urlFromName("/default/back2.jpg"));
+        config.addMaskImage(urlFromName("/default/back3.jpg"));
+        config.addTextEffect(CaptchaConfig.NONE_EFFECT);
+//        config.addTextEffect(new EmbossEffect());
+        config.addTextEffect(new BoxBlurEffect());
+//        config.addTextEffect(new RippleEffect());
+        config.addTextEffect(new TwirlEffect());
+        config.addTextEffect(new ConvolveEffect());
+        config.addTextEffect(new CrystallizeEffect());
+//        config.addMaskEffect(new BoxBlurEffect());
+//        config.addMaskEffect(new CrystallizeEffect());
+//        config.addMaskEffect(new TwirlEffect());
         config.addMaskEffect(CaptchaConfig.NONE_EFFECT);
-//        config.addMaskImage(urlFromName("/default/back2.jpg"));
-//        config.addMaskImage(urlFromName("/default/back3.jpg"));
-//        config.addTextEffect(new TextEmbossEffect());
-//        config.addTextEffect(new TextBoxBlurEffect());
-//        config.addTextEffect(new TextRippleEffect());
-//        config.addTextEffect(new TextTwirlEffect());
-//        config.addTextEffect(new TextConvolveEffect());
-//        config.addTextEffect(new TextCrystallizeEffect());
-//        config.addTextEffect(CaptchaConfig.NONE_EFFECT);
-//        config.addMaskEffect(new BackgroundBoxBlurEffect());
-//        config.addMaskEffect(new BackgroundCrystallizeEffect());
-//        config.addMaskEffect(new BackgroundTwirlEffect());
-//        config.addMergeEffect(CaptchaConfig.MERGE_EFFECT);
-//        config.addMergeEffect(new HalftoneEffect());
+        config.addMergeEffect(CaptchaConfig.NONE_EFFECT);
+        //config.addMergeEffect(new HalftoneEffect());
         config.addMergeEffect(new DiffusionEffect());
-
+        //config.addCaptchaEffect(new ChromeEffect());
+        repaint();
+        //config.setMaskEffectIterations(1);
+        config.setTextEffectIterations(2);
     }
 
     @Override
@@ -83,9 +88,18 @@ public class CaptchaRun extends JPanel {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
-        Container c = frame.getContentPane();
-        c.add(new CaptchaRun());
-        c.repaint();
+//        Container container = frame.getContentPane();
+//        FlowLayout flow = new FlowLayout();
+//        container.setLayout(flow);
+//        JButton search = new JButton("Reload");
+        CaptchaRun run = new CaptchaRun();
+        frame.add(run);
+//        container.add(run);
+//        container.add(search);
+//        search.addActionListener(l -> {
+//            run.repaint();
+//        });
+        run.repaint();
     }
 
 }
