@@ -32,8 +32,8 @@ public class CaptchaRun extends JPanel {
         config.addMaskImage(urlFromName("/custom/back1.jpg"));
         config.addMaskImage(urlFromName("/custom/back2.jpg"));
         config.addMaskImage(urlFromName("/custom/back3.jpg"));
-        config.addTextEffect(new TextBoxBlurEffect());
-        config.addTextEffect(new TextConvolveEffect());
+        config.addTextEffect(new BoxBlurEffect());
+        config.addTextEffect(new ConvolveEffect());
         config.addTextEffect(CaptchaConfig.NONE_EFFECT);
         config.addMaskEffect(new BoxBlurEffect());
         config.addMaskEffect(new TwirlEffect());
