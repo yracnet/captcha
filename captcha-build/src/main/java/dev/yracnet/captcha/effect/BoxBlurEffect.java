@@ -6,17 +6,29 @@
 package dev.yracnet.captcha.effect;
 
 import com.jhlabs.image.BoxBlurFilter;
-import dev.yracnet.captcha.CaptchaEffect;
+import dev.yracnet.captcha.CaptchaConfig;
 import java.awt.image.BufferedImage;
 import static dev.yracnet.captcha.CaptchaHelp.*;
+import dev.yracnet.captcha.CaptchaEffect;
 /**
  *
  * @author Willyams Yujra
  */
-public class TextBoxBlurEffect implements CaptchaEffect{
+public class BoxBlurEffect extends NoneEffect implements CaptchaEffect{
 
     @Override
-    public BufferedImage apply(BufferedImage src) {
+    public BufferedImage applyMask(BufferedImage src, CaptchaConfig config) {
+        BoxBlurFilter filter = new BoxBlurFilter();
+        filter.setHRadius(getFloatRango(0f, 2f));
+        filter.setVRadius(getFloatRango(0f, 2f));
+        filter.setIterations(getIntRango(0, 10));
+        BufferedImage clon = cloneImage(src);
+        filter.filter(clon, clon);
+        return clon;
+    }
+
+    @Override
+    public BufferedImage applyText(BufferedImage src, CaptchaConfig config) {
             BoxBlurFilter filter = new BoxBlurFilter();
             filter.setHRadius(getFloatRango(0f, 2f));
             filter.setVRadius(getFloatRango(0f, 2f));

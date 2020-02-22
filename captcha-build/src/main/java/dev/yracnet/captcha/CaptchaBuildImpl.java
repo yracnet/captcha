@@ -81,18 +81,18 @@ public class CaptchaBuildImpl implements CaptchaBuild {
     }
 
     @Override
-    public BufferedImage createSimpleBackground(BufferedImage src) {
-        return createSimpleBackground(src.getWidth(), src.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+    public BufferedImage createSimpleMask(BufferedImage src) {
+        return createSimpleMask(src.getWidth(), src.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
     }
 
     @Override
-    public BufferedImage createSimpleBackground(int width, int height) {
-        return createSimpleBackground(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+    public BufferedImage createSimpleMask(int width, int height) {
+        return createSimpleMask(width, height, BufferedImage.TYPE_4BYTE_ABGR);
     }
 
     @Override
-    public BufferedImage createSimpleBackground(int width, int height, int type) {
-        BufferedImage src = config.getBackgroundImageRandom();
+    public BufferedImage createSimpleMask(int width, int height, int type) {
+        BufferedImage src = config.getMaskRandom();
         int x = getIntRango(0, src.getWidth() - width - 1);
         int y = getIntRango(0, src.getHeight() - height - 1);
         try {
@@ -127,28 +127,28 @@ public class CaptchaBuildImpl implements CaptchaBuild {
         int max = config.getTextEffectIterations();
         for (int i = 0; i < max; i++) {
             CaptchaEffect effect = config.getTextEffectRandom();
-            dest = effect.apply(dest);
+            dest = effect.applyText(dest, config);
         }
         return dest;
     }
 
     @Override
-    public BufferedImage createEffectBackground(BufferedImage src) {
-        return createEffectBackground(src.getWidth(), src.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+    public BufferedImage createEffectMask(BufferedImage src) {
+        return createEffectMask(src.getWidth(), src.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
     }
 
     @Override
-    public BufferedImage createEffectBackground(int width, int height) {
-        return createEffectBackground(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+    public BufferedImage createEffectMask(int width, int height) {
+        return createEffectMask(width, height, BufferedImage.TYPE_4BYTE_ABGR);
     }
 
     @Override
-    public BufferedImage createEffectBackground(int width, int height, int type) {
-        BufferedImage src = createSimpleBackground(width, height, type);
-        int max = config.getBackgoundEffectIterations();
+    public BufferedImage createEffectMask(int width, int height, int type) {
+        BufferedImage src = createSimpleMask(width, height, type);
+        int max = config.getMaskEffectIterations();
         for (int i = 0; i < max; i++) {
-            CaptchaEffect effect = config.getBackgoundEffectRandom();
-            src = effect.apply(src);
+            CaptchaEffect effect = config.getMaskEffectRandom();
+            src = effect.applyMask(src, config);
         }
         return src;
     }
@@ -167,14 +167,14 @@ public class CaptchaBuildImpl implements CaptchaBuild {
 
     @Override
     public BufferedImage createCaptcha(BufferedImage text) {
-        BufferedImage back = createEffectBackground(text);
+        BufferedImage back = createEffectMask(text);
         return createCaptcha(text, back);
     }
 
     @Override
     public BufferedImage createCaptcha(BufferedImage text, BufferedImage back) {
-        back.getGraphics().drawImage(text, 0, 0, null);
-        return back;
+        CaptchaEffect effect = config.getMergeEffectRandom();
+        return effect.applyMerge(text, back, config);
     }
 
     @Override

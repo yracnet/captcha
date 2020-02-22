@@ -13,6 +13,10 @@ import java.awt.image.BufferedImage;
  */
 public interface CaptchaEffect {
 
-    public BufferedImage apply(BufferedImage src);
+    public BufferedImage applyText(BufferedImage src, CaptchaConfig config);
+
+    public BufferedImage applyMask(BufferedImage mask, CaptchaConfig config);
+
+    public BufferedImage applyMerge(BufferedImage src, BufferedImage mask, CaptchaConfig config);
 
 }

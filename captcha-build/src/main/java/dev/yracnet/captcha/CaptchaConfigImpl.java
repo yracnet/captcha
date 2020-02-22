@@ -29,14 +29,15 @@ public class CaptchaConfigImpl implements CaptchaConfig{
 
     private static final Logger LOGGER = Logger.getLogger(CaptchaConfigImpl.class.getName());
 
-    private final List<BufferedImage> backgoundImages = new ArrayList<>();
-    private final List<CaptchaEffect> backgoundEffects = new ArrayList<>();
-    private final List<Color> textColors = new ArrayList<>();
-    private final List<Font> textFonts = new ArrayList<>();
-    private final List<CaptchaEffect> textEffects = new ArrayList<>();
     private int space = 10;
     private int textEffectIterations = 1;
-    private int backgoundEffectIterations = 1;
+    private int maskEffectIterations = 1;
+    private final List<CaptchaEffect> maskEffects = new ArrayList<>();
+    private final List<CaptchaEffect> textEffects = new ArrayList<>();
+    private final List<CaptchaEffect> mergeEffects = new ArrayList<>();
+    private final List<BufferedImage> maskImages = new ArrayList<>();
+    private final List<Color> textColors = new ArrayList<>();
+    private final List<Font> textFonts = new ArrayList<>();
 
     public void addTextColor(String hex) {
         textColors.add(Color.decode(hex));
@@ -55,21 +56,43 @@ public class CaptchaConfigImpl implements CaptchaConfig{
         }
     }
 
-    public void addTextEffect(CaptchaEffect effect) {
-        textEffects.add(effect);
-    }
-
-    public void addBackgroundImage(URL url) {
+    public void addMaskImage(URL url) {
         try {
             BufferedImage image = ImageIO.read(url);
-            backgoundImages.add(image);
+            maskImages.add(image);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error load image", e);
         }
     }
 
-    public void addBackgroundEffect(CaptchaEffect effect) {
-        backgoundEffects.add(effect);
+    public void addCaptchaEffect(CaptchaEffect effect) {
+        maskEffects.add(effect);
+        textEffects.add(effect);
+        mergeEffects.add(effect);
+    }
+
+    public void addCaptchaEffect(CaptchaEffect effect, boolean isMask, boolean isText, boolean isMerge) {
+        if(isMask){
+            maskEffects.add(effect);
+        }
+        if(isText){
+            textEffects.add(effect);
+        }
+        if(isMerge){
+            mergeEffects.add(effect);
+        }
+    }
+
+    public void addTextEffect(CaptchaEffect effect) {
+        textEffects.add(effect);
+    }
+
+    public void addMaskEffect(CaptchaEffect effect) {
+        maskEffects.add(effect);
+    }
+
+    public void addMergeEffect(CaptchaEffect effect) {
+        mergeEffects.add(effect);
     }
 
     public Font getTextFontRandom(int fontStyle, int fontSize) {
@@ -90,8 +113,8 @@ public class CaptchaConfigImpl implements CaptchaConfig{
         return textColors.get(index);
     }
 
-    public BufferedImage getBackgroundImageRandom() {
-        if (backgoundImages.isEmpty()) {
+    public BufferedImage getMaskRandom() {
+        if (maskImages.isEmpty()) {
             int width = 1000, height = 1000;
             BufferedImage src = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
             Graphics g = src.getGraphics();
@@ -99,8 +122,8 @@ public class CaptchaConfigImpl implements CaptchaConfig{
             g.fillRect(0, 0, width, height);
             return src;
         }
-        int index = getIntRango(0, backgoundImages.size());
-        BufferedImage src = backgoundImages.get(index);
+        int index = getIntRango(0, maskImages.size());
+        BufferedImage src = maskImages.get(index);
         return cloneImage(src);
     }
 
@@ -112,12 +135,20 @@ public class CaptchaConfigImpl implements CaptchaConfig{
         return textEffects.get(index);
     }
 
-    public CaptchaEffect getBackgoundEffectRandom() {
-        if (backgoundEffects.isEmpty()) {
+    public CaptchaEffect getMaskEffectRandom() {
+        if (maskEffects.isEmpty()) {
             return NONE_EFFECT;
         }
-        int index = getIntRango(0, backgoundEffects.size());
-        return backgoundEffects.get(index);
+        int index = getIntRango(0, maskEffects.size());
+        return maskEffects.get(index);
+    }
+
+    public CaptchaEffect getMergeEffectRandom() {
+        if (mergeEffects.isEmpty()) {
+            return NONE_EFFECT;
+        }
+        int index = getIntRango(0, mergeEffects.size());
+        return mergeEffects.get(index);
     }
 
 }

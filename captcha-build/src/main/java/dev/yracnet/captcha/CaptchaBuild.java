@@ -26,11 +26,11 @@ public interface CaptchaBuild {
 
     public BufferedImage createSimpleText(String text, int fontStyle, int fontSize);
 
-    public BufferedImage createSimpleBackground(BufferedImage src);
+    public BufferedImage createSimpleMask(BufferedImage src);
 
-    public BufferedImage createSimpleBackground(int width, int height);
+    public BufferedImage createSimpleMask(int width, int height);
 
-    public BufferedImage createSimpleBackground(int width, int height, int type);
+    public BufferedImage createSimpleMask(int width, int height, int type);
 
     public BufferedImage createEffectText(String text);
 
@@ -38,11 +38,11 @@ public interface CaptchaBuild {
 
     public BufferedImage createEffectText(BufferedImage src);
 
-    public BufferedImage createEffectBackground(BufferedImage src);
+    public BufferedImage createEffectMask(BufferedImage src);
 
-    public BufferedImage createEffectBackground(int width, int height);
+    public BufferedImage createEffectMask(int width, int height);
 
-    public BufferedImage createEffectBackground(int width, int height, int type);
+    public BufferedImage createEffectMask(int width, int height, int type);
 
     public BufferedImage createCaptcha(String code);
 

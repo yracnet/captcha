@@ -6,18 +6,19 @@
 package dev.yracnet.captcha.effect;
 
 import com.jhlabs.image.RippleFilter;
-import dev.yracnet.captcha.CaptchaEffect;
+import dev.yracnet.captcha.CaptchaConfig;
 import java.awt.image.BufferedImage;
 import static dev.yracnet.captcha.CaptchaHelp.*;
+import dev.yracnet.captcha.CaptchaEffect;
 
 /**
  *
  * @author Willyams Yujra
  */
-public class TextRippleEffect implements CaptchaEffect {
+public class RippleEffect extends NoneEffect implements CaptchaEffect {
 
     @Override
-    public BufferedImage apply(BufferedImage src) {
+    public BufferedImage applyText(BufferedImage src, CaptchaConfig config) {
         RippleFilter filter = new RippleFilter();
         filter.setXAmplitude(getFloatRango(6f, 18f));
         filter.setYAmplitude(getFloatRango(2f, 10f));

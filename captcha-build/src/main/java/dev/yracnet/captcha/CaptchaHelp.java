@@ -5,14 +5,7 @@
  */
 package dev.yracnet.captcha;
 
-import dev.yracnet.captcha.effect.BackgroundBoxBlurEffect;
-import dev.yracnet.captcha.effect.BackgroundCrystallizeEffect;
-import dev.yracnet.captcha.effect.BackgroundTwirlEffect;
-import dev.yracnet.captcha.effect.TextBoxBlurEffect;
-import dev.yracnet.captcha.effect.TextConvolveEffect;
-import dev.yracnet.captcha.effect.TextCrystallizeEffect;
-import dev.yracnet.captcha.effect.TextRippleEffect;
-import dev.yracnet.captcha.effect.TextTwirlEffect;
+import dev.yracnet.captcha.effect.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
@@ -55,29 +48,33 @@ public class CaptchaHelp {
         CaptchaBuild build = CaptchaBuild.createInstance();
         CaptchaConfig config = build.getConfig();
         config.addTextFont(urlFromName("/default/font1.ttf"));
-        config.addTextFont(urlFromName("/default/font2.ttf"));
-        config.addTextFont(urlFromName("/default/font3.ttf"));
-        config.addTextColor("#0093d6");
-        config.addTextColor("#feda00");
-        config.addTextColor("#e72849");
-        config.addTextColor("#5094ff");
-        config.addTextColor("#ffffff");
-        config.addTextColor("#eaf871");
-        config.addTextColor("#fffcf7");
+//        config.addTextFont(urlFromName("/default/font2.ttf"));
+//        config.addTextFont(urlFromName("/default/font3.ttf"));
+        config.addTextColor("#30106c");
+//        config.addTextColor("#0093d6");
+//        config.addTextColor("#feda00");
+//        config.addTextColor("#e72849");
+//        config.addTextColor("#5094ff");
+//        config.addTextColor("#dfdfe3");
+//        config.addTextColor("#eaf871");
+//        config.addTextColor("#fffcf7");
         config.addTextColor("#11476d");
-        config.addBackgroundImage(urlFromName("/default/back1.jpg"));
-        config.addBackgroundImage(urlFromName("/default/back2.jpg"));
-        config.addBackgroundImage(urlFromName("/default/back3.jpg"));
-        config.addTextEffect(new TextBoxBlurEffect());
-        config.addTextEffect(new TextRippleEffect());
-        config.addTextEffect(new TextTwirlEffect());
-        config.addTextEffect(new TextConvolveEffect());
-        config.addTextEffect(new TextCrystallizeEffect());
+        config.addMaskImage(urlFromName("/default/back1.jpg"));
+//        config.addMaskImage(urlFromName("/default/back2.jpg"));
+//        config.addMaskImage(urlFromName("/default/back3.jpg"));
+//        config.addTextEffect(new TextEmbossEffect());
+//        config.addTextEffect(new TextBoxBlurEffect());
+//        config.addTextEffect(new TextRippleEffect());
+//        config.addTextEffect(new TextTwirlEffect());
+//        config.addTextEffect(new TextConvolveEffect());
+//        config.addTextEffect(new TextCrystallizeEffect());
         config.addTextEffect(CaptchaConfig.NONE_EFFECT);
-        config.addBackgroundEffect(new BackgroundBoxBlurEffect());
-        config.addBackgroundEffect(new BackgroundCrystallizeEffect());
-        config.addBackgroundEffect(new BackgroundTwirlEffect());
-        config.addBackgroundEffect(CaptchaConfig.NONE_EFFECT);
+//        config.addMaskEffect(new BackgroundBoxBlurEffect());
+//        config.addMaskEffect(new BackgroundCrystallizeEffect());
+//        config.addMaskEffect(new BackgroundTwirlEffect());
+        config.addMaskEffect(CaptchaConfig.NONE_EFFECT);
+//        config.addMergeEffect(CaptchaConfig.MERGE_EFFECT);
+        config.addMergeEffect(new HalftoneEffect());
         return build;
     }
 

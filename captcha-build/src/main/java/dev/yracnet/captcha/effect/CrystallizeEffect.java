@@ -6,20 +6,32 @@
 package dev.yracnet.captcha.effect;
 
 import com.jhlabs.image.CrystallizeFilter;
-import dev.yracnet.captcha.CaptchaEffect;
+import dev.yracnet.captcha.CaptchaConfig;
 import java.awt.image.BufferedImage;
 import static dev.yracnet.captcha.CaptchaHelp.*;
+import dev.yracnet.captcha.CaptchaEffect;
 
 /**
  *
  * @author Willyams Yujra
  */
-public class BackgroundCrystallizeEffect implements CaptchaEffect {
+public class CrystallizeEffect extends NoneEffect implements CaptchaEffect {
 
     @Override
-    public BufferedImage apply(BufferedImage src) {
+    public BufferedImage applyMask(BufferedImage src, CaptchaConfig config) {
         CrystallizeFilter filter = new CrystallizeFilter();
         filter.setScale(getFloatRango(1f, 50f));
+        filter.setGridType(getIntRango(0, 4));
+        filter.setFadeEdges(true);
+        BufferedImage clon = cloneImage(src);
+        filter.filter(clon, clon);
+        return clon;
+    }
+
+    @Override
+    public BufferedImage applyText(BufferedImage src, CaptchaConfig config) {
+        CrystallizeFilter filter = new CrystallizeFilter();
+        filter.setScale(getFloatRango(1f, 5f));
         filter.setGridType(getIntRango(0, 4));
         filter.setFadeEdges(true);
         BufferedImage clon = cloneImage(src);
