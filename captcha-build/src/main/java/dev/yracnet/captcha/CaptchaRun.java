@@ -56,6 +56,7 @@ public class CaptchaRun extends JPanel {
         config.addMergeEffect(CaptchaConfig.NONE_EFFECT);
         //config.addMergeEffect(new HalftoneEffect());
         config.addMergeEffect(new DiffusionEffect());
+        config.addMergeEffect(new XorEffect());
         //config.addCaptchaEffect(new ChromeEffect());
         repaint();
         //config.setMaskEffectIterations(1);
